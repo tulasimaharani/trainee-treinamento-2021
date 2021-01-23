@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ifx="http://infox.com.br/trainee"
+	template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+		<h:form id="alternarConfiguracaoAdapter">
+			<div>
+				<h:outputFormat value="Próximo número da sequência de Fibonacci (Soma de {0} e {1}): {2}">
+					<f:param value="#{fiboAnterior}" />
+					<f:param value="#{fiboAtual}" />
+					<f:param value="#{proximoNumeroFibonacci}" />
+				</h:outputFormat>
+			</div>
+			<h:commandButton id="alternar" value="Alternar Configuração de adaptador"
+				action="#{pessoaFisicaControllerCDI.alternarAdapter}" />
+		</h:form>
+		<h:form id="registrarMembro">
+
+			<ui:include src="/WEB-INF/components/inputText.xhtml">
+				<ui:param name="id" value="name" />
+				<ui:param name="label" value="Nome: " />
+				<ui:param name="value" value="#{pessoaFisicaControllerCDI.novaPessoa.name}" />
+			</ui:include>
+			<h:inputHidden id="id" value="#{pessoaFisicaControllerCDI.novaPessoa.id}">
+				<f:converter converterId="javax.faces.Long" />
+			</h:inputHidden>
+			
+			<ifx:inputText id="email" label="Email: "
+				value="#{pessoaFisicaControllerCDI.novaPessoa.email}" />
+
+			<ifx:inputText id="cpf" label="CPF: "
+				validator="pessoafisica.CpfValidator"
+				converter="pessoafisica.CpfConverter"
+				value="#{pessoaFisicaControllerCDI.novaPessoa.cpf}" />
+
+			<ifx:inputText id="phoneNumber" label="Telefone: "
+				value="#{pessoaFisicaControllerCDI.novaPessoa.phoneNumber}" />
+
+			<ifx:inputText id="birthDate" label="Data de nascimento "
+					value="#{pessoaFisicaControllerCDI.novaPessoa.birthDate}">
+				<f:convertDateTime pattern="dd/MM/yyyy" />
+			</ifx:inputText>
+
+			<h:commandButton id="registrar" value="Registrar"
+				action="#{pessoaFisicaControllerCDI.registrar}" />
+		</h:form>
+
+		<h:dataTable id="listagempessoas" styleClass="simpletablestyle" var="pessoa" value="#{pessoaFisicaControllerCDI.pessoas}">
+			<h:column>
+				<h:form id="toolbarForm">
+					<p:commandButton id="edit" value="EDIT" ajax="false" action="#{pessoaFisicaControllerCDI.editar(pessoa)}" />
+					<p:commandButton id="remove" value="REMOVE" ajax="false" action="#{pessoaFisicaControllerCDI.remover(pessoa)}" />
+				</h:form>
+			</h:column>
+			<h:column>
+				<f:facet name="header">NOME</f:facet>
+				<h:outputText value="#{pessoa.name}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">EMAIL</f:facet>
+				<h:outputText value="#{pessoa.email}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">CPF</f:facet>
+				<h:outputText converter="pessoafisica.CpfConverter" value="#{pessoa.cpf}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">TELEFONE</f:facet>
+				<h:outputText value="#{pessoa.phoneNumber}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">DATA DE NASCIMENTO</f:facet>
+				<h:outputText value="#{pessoa.birthDate}">
+					<f:convertDateTime pattern="dd/MM/yyyy" />
+				</h:outputText>
+			</h:column>
+		</h:dataTable>
+
+	</ui:define>
+</ui:composition>
