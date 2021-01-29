@@ -40,21 +40,20 @@ public class PessoaFisicaStatelessEJB implements PessoaFisicaService {
 	public void registrar(PessoaFisica novaPessoa) {
 		this.quantidadeAcessos++;
 		LOG.info("QUANTIDADES DE ACESSO A STATELESS SESSION BEAN => "+this.quantidadeAcessos);
-		PessoaFisica pessoa = entityManager.find(PessoaFisica.class, novaPessoa.getId());
-		if (novaPessoa.getId() == null) {
+		PessoaFisica pessoa = novaPessoa;
+		if (pessoa.getId() == null) {
 			entityManager.persist(pessoa);
 		} else {
-			novaPessoa = entityManager.merge(novaPessoa);
+			pessoa = entityManager.merge(pessoa);
 		}
-
-		novaPessoa.setName(novaPessoa.getName()+" x");
-
+		pessoa.setName(pessoa.getName()+" x");
 	}
 	@Override
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public void remover(PessoaFisica pessoa) {
-		pessoa = entityManager.find(PessoaFisica.class, pessoa.getId());
+	public PessoaFisica remover(Long idPessoa) {
+		PessoaFisica pessoa = entityManager.find(PessoaFisica.class, idPessoa);
 		entityManager.remove(pessoa);
+		return pessoa;
 	}
 
 	@Override
@@ -67,7 +66,7 @@ public class PessoaFisicaStatelessEJB implements PessoaFisicaService {
 		this.quantidadeAcessos++;
 		LOG.info("QUANTIDADES DE ACESSO A STATELESS SESSION BEAN => "+this.quantidadeAcessos);
 
-		String jpqlRecuperarPessoas = "select pessoa from PessoaFisica pessoa";
+		String jpqlRecuperarPessoas = "select pessoa from PessoaFisica pessoa left join fetch pessoa.enderecos e";
 		TypedQuery<PessoaFisica> createQuery = entityManager.createQuery(jpqlRecuperarPessoas, PessoaFisica.class);
 		if (offset != null) {
 			createQuery.setFirstResult(offset);

@@ -113,6 +113,12 @@
             <artifactId>cdi-api</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+	        <groupId>org.projectlombok</groupId>
+        	<artifactId>lombok</artifactId>
+        	<version>1.18.16</version>
+        	<scope>provided</scope>
+      	</dependency>
 
         <!-- Import the Common Annotations API (JSR-250), we use provided scope
             as the API is included in JBoss EAP 6 -->
@@ -206,6 +212,15 @@
             given to the generated war, and hence the context root) -->
         <finalName>${project.artifactId}</finalName>
         <plugins>
+        	<plugin>
+        		<artifactId>maven-compiler-plugin</artifactId>
+        		<version>3.5.1</version>
+        		<configuration>
+        			<compilerArguments>
+        				<processor>lombok.launch.AnnotationProcessorHider$AnnotationProcessor</processor>
+        			</compilerArguments>
+        		</configuration>
+        	</plugin>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>${version.war.plugin}</version>
@@ -220,6 +235,29 @@
                 <groupId>org.jboss.as.plugins</groupId>
                 <artifactId>jboss-as-maven-plugin</artifactId>
                 <version>${version.jboss.maven.plugin}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jaxws-maven-plugin</artifactId>
+                <version>2.5</version>
+                <executions>
+                    <execution>
+                    	<id>wsdl</id>
+		                <configuration>
+		                    <target>2.2</target>
+		                    <wsdlDirectory>${project.basedir}/src/main/resources/META-INF</wsdlDirectory>
+		                    <sourceDestDir>${project.build.directory}/generated-sources/wsimport</sourceDestDir>
+		                    <wsdlFiles>
+								<wsdlFile>PessoaFisicaEndpointSoap.wsdl</wsdlFile>
+							</wsdlFiles>
+
+							<packageName>br.com.infox.treinamento.trainee.ws.client</packageName>
+		                </configuration>
+		                <goals>
+		                	<goal>wsimport</goal>
+		                </goals>
+	                </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
