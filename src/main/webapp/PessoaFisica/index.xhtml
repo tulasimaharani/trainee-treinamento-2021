@@ -8,7 +8,7 @@
     template="/WEB-INF/templates/default.xhtml">
     <ui:define name="content">
        <h:form id="registrarPessoaFisica">
-       	      
+			<h:panelGrid columns="2" columnClasses="titleCell">
 				<ifx:inputText id="name" label="Nome: "
 					value="#{pessoaFisicaControllerJSF.novaPessoa.name}" />
 				
@@ -28,11 +28,10 @@
 					<f:convertDateTime pattern="dd/MM/yyyy" />
 				</ifx:inputText>
 				
-		<p>
-			<h:panelGrid colums="2">
-				<h:commandButton id="registrar" value="Registrar" action="#{pessoaFisicaControllerJSF.registrar}"/>
+				<div>
+					<h:commandButton id="registrar" value="Registrar" action="#{pessoaFisicaControllerJSF.registrar}"/>
+       			</div>
 			</h:panelGrid>
-		</p>
        </h:form>
        
        <h:dataTable var="pessoa" styleClass="simpletablestyle" value="#{pessoaFisicaControllerJSF.pessoas}">
