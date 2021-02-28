@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import javax.ejb.LocalBean;
+import javax.ejb.PostActivate;
+import javax.ejb.PrePassivate;
 import javax.ejb.Stateful;
 
 @Stateful
@@ -15,6 +17,14 @@ public class PessoaFisicaStatefulEJB {
 	private static final Logger LOG = Logger.getLogger("trainee.ejb");
 
 	private List<PessoaFisica> pessoas;
+	
+	@PrePassivate
+	private void prePassivate() {
+	}
+	
+	@PostActivate
+	private void postActivate() {
+	}
 	
 	public void registrar(PessoaFisica novaPessoa) {
 		if (pessoas == null) {
