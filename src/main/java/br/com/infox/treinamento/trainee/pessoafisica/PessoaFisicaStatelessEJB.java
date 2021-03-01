@@ -8,8 +8,12 @@ import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.interceptor.Interceptors;
+
+import br.com.infox.treinamento.trainee.interceptors.MethodAccessLogInterceptor;
 
 @Stateless
+@Interceptors(MethodAccessLogInterceptor.class)
 public class PessoaFisicaStatelessEJB implements PessoaFisicaService {
 
 	private static final Logger LOG = Logger.getLogger("trainee.slsb");
