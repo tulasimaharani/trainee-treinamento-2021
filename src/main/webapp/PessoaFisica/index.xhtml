@@ -7,6 +7,12 @@
     xmlns:ifx="http://infox.com.br/trainee"
     template="/WEB-INF/templates/default.xhtml">
     <ui:define name="content">
+       <h:form id="alternarConfiguracaoAdapter">
+  			<div>
+				<h:commandButton id="alternar" value="Alternar configuração de adaptador"
+					action="#{pessoaFisicaController.alternarAdapter}"/>
+  			</div>
+       </h:form>
        <h:form id="registrarPessoaFisica">
 			<h:panelGrid columns="2" columnClasses="titleCell">
 				<ifx:inputText id="name" label="Nome: "
