@@ -14,7 +14,9 @@ public class PessoaFisicaServiceAdapterRouter implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private boolean usaAdaptadorDadosSensiveis = false;
-
+	private int anterior = 0;
+	private int atual = 1;
+	
 	public boolean isUsaAdaptadorDadosSensiveis() {
 		return usaAdaptadorDadosSensiveis;
 	}
@@ -35,4 +37,12 @@ public class PessoaFisicaServiceAdapterRouter implements Serializable {
 		return impl;
 	}
 	
+	@Produces
+	@Fibonacci
+	public int next() {
+		int aux = anterior;
+		anterior = atual;
+		atual += aux;
+		return atual;
+	}
 }
