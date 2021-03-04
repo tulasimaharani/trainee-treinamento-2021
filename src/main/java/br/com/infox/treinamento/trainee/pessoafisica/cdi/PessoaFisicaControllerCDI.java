@@ -22,7 +22,11 @@ public class PessoaFisicaControllerCDI implements Serializable {
 	private static final Logger LOG = Logger.getLogger("trainee.pessoafisica.cdi");
 	
 	@Inject
+	@DadosSensiveis
 	private PessoaFisicaServiceAdapter pessoaFisicaServiceAdapter;
+	
+	@Inject
+	private PessoaFisicaServiceAdapter pessoaFisicaServiceAdapter2;
 	
 	private PessoaFisica novaPessoa; 
 	
@@ -41,7 +45,7 @@ public class PessoaFisicaControllerCDI implements Serializable {
 	}
 
 	public void registrar() {
-		pessoaFisicaServiceAdapter.registrar(getNovaPessoa());
+		pessoaFisicaServiceAdapter2.registrar(getNovaPessoa());
 		pessoas = pessoaFisicaServiceAdapter.recuperarPessoas();
 		novoCadastro();
 	}
