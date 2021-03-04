@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Produces;
+import javax.inject.Named;
 
 import br.com.infox.treinamento.trainee.pessoafisica.PessoaFisicaServiceAdapter;
 
@@ -14,7 +15,13 @@ public class PessoaFisicaServiceAdapterRouter implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private boolean usaAdaptadorDadosSensiveis = false;
+	@Named("fiboAnterior")
+	@Produces
+	@FibonacciAnterior
 	private int anterior = 0;
+	@Named("fiboAtual")
+	@Produces
+	@FibonacciAtual
 	private int atual = 1;
 	
 	public boolean isUsaAdaptadorDadosSensiveis() {
@@ -39,6 +46,7 @@ public class PessoaFisicaServiceAdapterRouter implements Serializable {
 	
 	@Produces
 	@Fibonacci
+	@Named("proximoNumeroFibonacci")
 	public int next() {
 		int aux = anterior;
 		anterior = atual;
