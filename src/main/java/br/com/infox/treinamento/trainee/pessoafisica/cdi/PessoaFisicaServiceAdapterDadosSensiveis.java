@@ -13,7 +13,7 @@ import br.com.infox.treinamento.trainee.pessoafisica.PessoaFisica;
 import br.com.infox.treinamento.trainee.pessoafisica.PessoaFisicaService;
 import br.com.infox.treinamento.trainee.pessoafisica.PessoaFisicaServiceAdapter;
 
-@Alternative
+@DadosSensiveis
 public class PessoaFisicaServiceAdapterDadosSensiveis implements PessoaFisicaServiceAdapter{
 
 	private static final Logger LOG = Logger.getLogger("trainee.cdi.dados_sensiveis");
