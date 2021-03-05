@@ -7,10 +7,12 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 
+import br.com.infox.treinamento.trainee.interceptors.MethodAccessLog;
 import br.com.infox.treinamento.trainee.pessoafisica.PessoaFisica;
 import br.com.infox.treinamento.trainee.pessoafisica.PessoaFisicaService;
 import br.com.infox.treinamento.trainee.pessoafisica.PessoaFisicaServiceAdapter;
 
+@MethodAccessLog
 public class PessoaFisicaServiceAdapterDefault implements PessoaFisicaServiceAdapter{
 
 	private static final Logger LOG = Logger.getLogger("trainee.cdi.default");
@@ -22,12 +24,12 @@ public class PessoaFisicaServiceAdapterDefault implements PessoaFisicaServiceAda
 	
 	@PostConstruct
 	public void init() {
-		LOG.info("PostConstruct" + getClass().getSimpleName());
+		LOG.info("PostConstruct " + getClass().getSimpleName());
 	}
 	
 	@PreDestroy
 	public void destroy() {
-		LOG.info("PreDestroy" + getClass().getSimpleName());
+		LOG.info("PreDestroy " + getClass().getSimpleName());
 	}
 	
 	@Override

@@ -9,6 +9,7 @@ import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import javax.enterprise.inject.Alternative;
 
+import br.com.infox.treinamento.trainee.interceptors.MethodAccessLog;
 import br.com.infox.treinamento.trainee.pessoafisica.PessoaFisica;
 import br.com.infox.treinamento.trainee.pessoafisica.PessoaFisicaService;
 import br.com.infox.treinamento.trainee.pessoafisica.PessoaFisicaServiceAdapter;
@@ -41,6 +42,7 @@ public class PessoaFisicaServiceAdapterDadosSensiveis implements PessoaFisicaSer
 	}
 	
 	@Override
+	@MethodAccessLog
 	public List<PessoaFisica> recuperarPessoas() {
 		this.quantidadeAcessos++;
 		LOG.info("QUANTIDADE DE ACESSOS A " + getClass().getSimpleName() + " => "  + this.quantidadeAcessos);
