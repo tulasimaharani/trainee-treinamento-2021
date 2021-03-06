@@ -42,7 +42,7 @@ public abstract class PessoaFisicaServiceAdapterDecorator implements PessoaFisic
 		LOG.info("QUANTIDADE DE ACESSOS A " + getClass().getSimpleName() + " => " + this.quantidadeAcessos);
 		List<PessoaFisica> recuperarPessoas = pessoaFisicaServiceAdapter.recuperarPessoas();
 		if(pessoaFisicaServiceAdapterRouter.isUsaAdaptadorDadosSensiveis()) {
-			recuperarPessoas = recuperarPessoas().stream().map(this::esconderDados).collect(Collectors.toList());
+			recuperarPessoas = recuperarPessoas.stream().map(this::esconderDados).collect(Collectors.toList());
 		}
 		return recuperarPessoas;
 	}
