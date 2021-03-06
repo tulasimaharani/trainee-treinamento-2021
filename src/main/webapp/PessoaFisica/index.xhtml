@@ -15,37 +15,37 @@
   					<f:param value="#{proximoNumeroFibonacci}"/>
   				</h:outputFormat>
 				<h:commandButton id="alternar" value="Alternar configuração de adaptador"
-					action="#{pessoaFisicaController.alternarAdapter}"/>
+					action="#{pessoaFisicaControllerCDI.alternarAdapter}"/>
   			</div>
        </h:form>
        <h:form id="registrarPessoaFisica">
 			<h:panelGrid columns="2" columnClasses="titleCell">
 				<ifx:inputText id="name" label="Nome: "
-					value="#{pessoaFisicaController.novaPessoa.name}" />
+					value="#{pessoaFisicaControllerCDI.novaPessoa.name}" />
 				
 				<ifx:inputText id="email" label="Email: "
-					value="#{pessoaFisicaController.novaPessoa.email}" />
+					value="#{pessoaFisicaControllerCDI.novaPessoa.email}" />
 				
 				<ifx:inputText id="cpf" label="CPF: "
 					validator="pessoafisica.CpfValidator"
 					converter="pessoafisica.CpfConverter"
-					value="#{pessoaFisicaController.novaPessoa.cpf}" />
+					value="#{pessoaFisicaControllerCDI.novaPessoa.cpf}" />
 	
 				<ifx:inputText id="phoneNumber" label="Telefone: "
-					 value = "#{pessoaFisicaController.novaPessoa.phoneNumber}"/>
+					 value = "#{pessoaFisicaControllerCDI.novaPessoa.phoneNumber}"/>
 				
 				<ifx:inputText id="birthDate" label="Data de Nascimento: "
-	       			 value = "#{pessoaFisicaController.novaPessoa.birthDate}"> 
+	       			 value = "#{pessoaFisicaControllerCDI.novaPessoa.birthDate}"> 
 					<f:convertDateTime pattern="dd/MM/yyyy" />
 				</ifx:inputText>
 				
 				<div>
-					<h:commandButton id="registrar" value="Registrar" action="#{pessoaFisicaController.registrar}"/>
+					<h:commandButton id="registrar" value="Registrar" action="#{pessoaFisicaControllerCDI.registrar}"/>
        			</div>
 			</h:panelGrid>
        </h:form>
        
-       <h:dataTable var="pessoa" styleClass="simpletablestyle" value="#{pessoaFisicaController.pessoas}">
+       <h:dataTable var="pessoa" styleClass="simpletablestyle" value="#{pessoaFisicaControllerCDI.pessoas}">
        		<h:column>
        			<f:facet name="header">NOME</f:facet>
        			<h:outputText value="#{pessoa.name}"/>

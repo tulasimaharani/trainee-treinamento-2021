@@ -12,8 +12,7 @@ import javax.inject.Named;
 
 import br.com.infox.treinamento.trainee.pessoafisica.PessoaFisica;
 
-@Named("pessoaFisicaController")
-@RequestScoped
+@TraineeModel
 public class PessoaFisicaControllerCDI implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
