@@ -6,22 +6,25 @@ import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.ejb.EJB;
-import javax.enterprise.inject.Alternative;
+import javax.decorator.Decorator;
+import javax.decorator.Delegate;
+import javax.inject.Inject;
 
-import br.com.infox.treinamento.trainee.interceptors.MethodAccessLog;
 import br.com.infox.treinamento.trainee.pessoafisica.PessoaFisica;
-import br.com.infox.treinamento.trainee.pessoafisica.PessoaFisicaService;
 
-@DadosSensiveis
-public class PessoaFisicaServiceAdapterDadosSensiveis implements PessoaFisicaServiceAdapter{
+@Decorator
+public abstract class PessoaFisicaServiceAdapterDecorator implements PessoaFisicaServiceAdapter {
 
 	private static final Logger LOG = Logger.getLogger("trainee.cdi.dados_sensiveis");
 
 	private int quantidadeAcessos = 0;
 	
-	@EJB
-	private PessoaFisicaService pessoaFisicaService;
+	@Inject
+	@Delegate
+	private PessoaFisicaServiceAdapter pessoaFisicaServiceAdapter;
+	
+	@Inject
+	private PessoaFisicaServiceAdapterRouter pessoaFisicaServiceAdapterRouter;
 	
 	@PostConstruct
 	public void init() {
@@ -34,18 +37,14 @@ public class PessoaFisicaServiceAdapterDadosSensiveis implements PessoaFisicaSer
 	}
 	
 	@Override
-	public void registrar(PessoaFisica novaPessoa) {
-		this.quantidadeAcessos++;
-		LOG.info("QUANTIDADE DE ACESSOS A " + getClass().getSimpleName() + " => " + this.quantidadeAcessos);
-		pessoaFisicaService.registrar(novaPessoa);
-	}
-	
-	@Override
-	@MethodAccessLog
 	public List<PessoaFisica> recuperarPessoas() {
 		this.quantidadeAcessos++;
-		LOG.info("QUANTIDADE DE ACESSOS A " + getClass().getSimpleName() + " => "  + this.quantidadeAcessos);
-		return pessoaFisicaService.recuperarPessoas().stream().map(this::esconderDados).collect(Collectors.toList());
+		LOG.info("QUANTIDADE DE ACESSOS A " + getClass().getSimpleName() + " => " + this.quantidadeAcessos);
+		List<PessoaFisica> recuperarPessoas = pessoaFisicaServiceAdapter.recuperarPessoas();
+		if(pessoaFisicaServiceAdapterRouter.isUsaAdaptadorDadosSensiveis()) {
+			recuperarPessoas = recuperarPessoas().stream().map(this::esconderDados).collect(Collectors.toList());
+		}
+		return recuperarPessoas;
 	}
 	
 	private String ocultarDados(String string) {
@@ -62,4 +61,5 @@ public class PessoaFisicaServiceAdapterDadosSensiveis implements PessoaFisicaSer
 		comDadosOcultos.setPhoneNumber(ocultarDados(pessoaFisica.getPhoneNumber()));
 		return comDadosOcultos;
 	}
+
 }

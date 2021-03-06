@@ -26,4 +26,8 @@
         <interceptors>
         	<class>br.com.infox.treinamento.trainee.interceptors.MethodAccessLogInterceptor</class>
         </interceptors>
+        
+        <decorators>
+        	<class>br.com.infox.treinamento.trainee.pessoafisica.cdi.PessoaFisicaServiceAdapterDecorator</class>
+        </decorators>
 </beans>
