@@ -9,8 +9,6 @@ import javax.enterprise.inject.Disposes;
 import javax.enterprise.inject.Produces;
 import javax.inject.Named;
 
-import br.com.infox.treinamento.trainee.pessoafisica.PessoaFisicaServiceAdapter;
-
 @ApplicationScoped
 public class PessoaFisicaServiceAdapterRouter implements Serializable {
 
