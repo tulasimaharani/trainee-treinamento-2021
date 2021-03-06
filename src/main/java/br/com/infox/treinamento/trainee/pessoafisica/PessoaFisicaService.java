@@ -7,8 +7,10 @@ import javax.ejb.Local;
 @Local
 public interface PessoaFisicaService {
 
+	void registrar(PessoaFisica novaPessoa);
+	
 	List<PessoaFisica> recuperarPessoas();
 
-	void registrar(PessoaFisica novaPessoa);
+	List<PessoaFisica> recuperarPessoas(Integer offset, Integer limit);
 
 }
