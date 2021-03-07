@@ -44,4 +44,9 @@ public class PessoaFisicaServiceAdapterDefault implements PessoaFisicaServiceAda
 		LOG.info("QUANTIDADE DE ACESSOS A " + getClass().getSimpleName() + " => "  + this.quantidadeAcessos);
 		return pessoaFisicaService.recuperarPessoas();
 	}
+	
+	@Override
+	public void remover(PessoaFisica pessoa) {
+		pessoaFisicaService.remover(pessoa);
+	}
 }

@@ -12,5 +12,7 @@ public interface PessoaFisicaService {
 	List<PessoaFisica> recuperarPessoas();
 
 	List<PessoaFisica> recuperarPessoas(Integer offset, Integer limit);
+	
+	void remover(PessoaFisica pessoa);
 
 }

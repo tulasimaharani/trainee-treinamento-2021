@@ -4,6 +4,7 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
     xmlns:ifx="http://infox.com.br/trainee"
     template="/WEB-INF/templates/default.xhtml">
     <ui:define name="content">
@@ -39,13 +40,23 @@
 					<f:convertDateTime pattern="dd/MM/yyyy" />
 				</ifx:inputText>
 				
+				<h:inputHidden id="id" value="#{pessoaFisicaControllerCDI.novaPessoa.id}">
+					<f:converter converterId="javax.faces.Long" />
+				</h:inputHidden>
+				
 				<div>
 					<h:commandButton id="registrar" value="Registrar" action="#{pessoaFisicaControllerCDI.registrar}"/>
        			</div>
 			</h:panelGrid>
        </h:form>
        
-       <h:dataTable var="pessoa" styleClass="simpletablestyle" value="#{pessoaFisicaControllerCDI.pessoas}">
+       <h:dataTable id="listagempessoas" styleClass="simpletablestyle" var="pessoa" value="#{pessoaFisicaControllerCDI.pessoas}">
+			<h:column>
+				<h:form id="toolbarForm">
+					<p:commandButton id="edit" value="EDIT" ajax="false" action="#{pessoaFisicaControllerCDI.editar(pessoa)}" />
+					<p:commandButton id="remove" value="REMOVE" ajax="false" action="#{pessoaFisicaControllerCDI.remover(pessoa)}" />
+				</h:form>
+			</h:column>
        		<h:column>
        			<f:facet name="header">NOME</f:facet>
        			<h:outputText value="#{pessoa.name}"/>

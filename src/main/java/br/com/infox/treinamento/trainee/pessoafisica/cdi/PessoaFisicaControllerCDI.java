@@ -52,6 +52,15 @@ public class PessoaFisicaControllerCDI implements Serializable {
 		novoCadastro();
 	}
 	
+	public void remover(PessoaFisica pessoa) {
+		pessoaFisicaServiceAdapter.remover(pessoa);
+		pessoas = pessoaFisicaServiceAdapter.recuperarPessoas();
+	}
+	
+	public void editar(PessoaFisica pessoa) {
+		this.novaPessoa = pessoa;
+	}
+	
 	private void novoCadastro() {
 		this.novaPessoa = new PessoaFisica();
 	}
